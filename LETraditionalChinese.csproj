@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PublishAot>true</PublishAot>
+		<InvariantGlobalization>true</InvariantGlobalization>
+
+		<IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+		<DebuggerSupport>false</DebuggerSupport>
+		<EventSourceSupport>false</EventSourceSupport>
+		<RollForward>LatestMajor</RollForward>
+
+		<Version>1.0.0</Version>
+		<Authors>aianlinb</Authors>
+		<Copyright>Copyright © 2024 aianlinb</Copyright>
+		<PackageId>LastEpoch.TraditionalChinese</PackageId>
+		<RepositoryUrl>https://github.com/aianlinb/LETraditionalChinese</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+	</PropertyGroup>
+
+	<Import Project="OSConstants.props" />
+
+	<ItemGroup>
+		<Reference Include="LELocalePatch" HintPath="lib\LELocalePatch" />
+		<Reference Include="LEFontPatch" HintPath="lib\LEFontPatch" />
+	</ItemGroup>
+
+</Project>

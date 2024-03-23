@@ -1,0 +1,24 @@
+<Project>
+	<PropertyGroup>
+		<TargetFramework Condition="$(RuntimeIdentifier.StartsWith('win10')) And !$(TargetFramework.Contains('-'))">$(TargetFramework)-windows10</TargetFramework>
+		<TargetFramework Condition="$(RuntimeIdentifier.StartsWith('win')) And !$(TargetFramework.Contains('-'))">$(TargetFramework)-windows</TargetFramework>
+		
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('win'))">$(DefineConstants);WINDOWS</DefineConstants>
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('unix')) Or $(RuntimeIdentifier.StartsWith('freebsd')) Or $(RuntimeIdentifier.StartsWith('haiku'))
+			Or $(RuntimeIdentifier.StartsWith('illumos')) Or $(RuntimeIdentifier.StartsWith('solaris'))">$(DefineConstants);UNIX</DefineConstants>
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('linux'))">$(DefineConstants);LINUX;UNIX</DefineConstants>
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('osx'))">$(DefineConstants);MACOS;UNIX</DefineConstants>
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('android'))">$(DefineConstants);ANDROID;UNIX</DefineConstants>
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('ios'))">$(DefineConstants);IOS;UNIX</DefineConstants>
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('tvos'))">$(DefineConstants);TVOS;UNIX</DefineConstants>
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('browser')) Or $(RuntimeIdentifier.StartsWith('wasi'))">$(DefineConstants);BROWSER</DefineConstants>
+		<DefineConstants Condition="$(RuntimeIdentifier.StartsWith('maccatalyst'))">$(DefineConstants);MACCATALYST;IOS;UNIX</DefineConstants>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$(RuntimeIdentifier) == ''">
+		<DefineConstants Condition="$([System.OperatingSystem]::IsWindows())">$(DefineConstants);WINDOWS</DefineConstants>
+		<DefineConstants Condition="$([System.OperatingSystem]::IsLinux())">$(DefineConstants);LINUX;UNIX</DefineConstants>
+		<DefineConstants Condition="$([System.OperatingSystem]::IsMacOS())">$(DefineConstants);MACOS;UNIX</DefineConstants>
+		<DefineConstants>$(DefineConstants);ANY</DefineConstants>
+	</PropertyGroup>
+</Project>
