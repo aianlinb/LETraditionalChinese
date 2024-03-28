@@ -10,11 +10,11 @@ public static class Program {
 	public static void Main(string[] args) {
 		/*var hash = GenerateHashAsync(@"E:\Steam\steamapps\common\Last Epoch\Last Epoch_Data\StreamingAssets\aa\StandaloneWindows64\localization-string-tables-chinese(simplified)(zh)_assets_all.bundle")
 			.AsTask().GetAwaiter().GetResult();
-		File.WriteAllBytes("bundle.md5", hash);
+		File.WriteAllBytes("../../../zh-Hant/bundle.md5", hash);
 		return;*/
 
-		var zhZip = AppContext.BaseDirectory + "zh-Hant.zip";
-		var fontZip = AppContext.BaseDirectory + "jf-openhuninn-2.0.zip";
+		var zhZip = Path.Combine(AppContext.BaseDirectory, "zh-Hant.zip");
+		var fontZip = Path.Combine(AppContext.BaseDirectory, "jf-openhuninn-2.0.zip");
 		if (!File.Exists(zhZip)) {
 			Console.WriteLine("Missing file: zh-Hant.zip");
 			goto end;
@@ -62,7 +62,7 @@ public static class Program {
 				}
 			}
 			
-			LELocalePatch.Program.Run(bundlePath, "zh-Hant.zip", false);
+			LELocalePatch.Program.Run(bundlePath, "zh-Hant.zip", false, true);
 			Console.WriteLine("Patching fonts . . .");
 			LEFontPatch.Program.Run(path + @"/Last Epoch_Data", "jf-openhuninn-2.0.zip");
 			return; // Do not pause if success
