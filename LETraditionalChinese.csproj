@@ -26,6 +26,8 @@
 	<ItemGroup>
 		<Reference Include="LELocalePatch" HintPath="lib\LELocalePatch" />
 		<Reference Include="LEFontPatch" HintPath="lib\LEFontPatch" />
+		<None Update="zh-Hant/**" CopyToOutputDirectory="PreserveNewest" />
+		<None Update="fonts/**" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 
 </Project>

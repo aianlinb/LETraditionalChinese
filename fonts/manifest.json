@@ -1,5 +1,5 @@
 {
-	// The following assets must be built from Unity 2019.4.40f1
+	// The following assets must be built with Unity 2019.4.40f1
 	
 	"sourceFontFiles": [  // Must be raw asset binary (Font)
 		{ "path": "jf-openhuninn-2.0.dat" }

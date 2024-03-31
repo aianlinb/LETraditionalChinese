@@ -13,15 +13,21 @@ public static class Program {
 		File.WriteAllBytes("../../../zh-Hant/bundle.md5", hash);
 		return;*/
 
-		var zhZip = Path.Combine(AppContext.BaseDirectory, "zh-Hant.zip");
-		var fontZip = Path.Combine(AppContext.BaseDirectory, "jf-openhuninn-2.0.zip");
-		if (!File.Exists(zhZip)) {
-			Console.WriteLine("Missing file: zh-Hant.zip");
-			goto end;
+		var zhPath = AppContext.BaseDirectory + "zh-Hant.zip";
+		var fontPath = AppContext.BaseDirectory + "fonts.zip";
+		if (!File.Exists(zhPath)) {
+			zhPath = AppContext.BaseDirectory + "zh-Hant";
+			if (!Directory.Exists(zhPath)) {
+				Console.WriteLine("Missing file: zh-Hant.zip");
+				goto end;
+			}
 		}
-		if (!File.Exists(fontZip)) {
-			Console.WriteLine("Missing file: jf-openhuninn-2.0.zip");
-			goto end;
+		if (!File.Exists(fontPath)) {
+			fontPath = AppContext.BaseDirectory + "fonts";
+			if (!Directory.Exists(fontPath)) {
+				Console.WriteLine("Missing file: fonts.zip");
+				goto end;
+			}
 		}
 
 		string path;
@@ -47,24 +53,28 @@ public static class Program {
 
 			var info = new FileInfo(bundlePath);
 			if (info.Length > 819200) { // > 800 KB (Haven't patched yet)
-				using var za = ZipFile.OpenRead(zhZip);
-				if (za.Entries.FirstOrDefault(e => e.Name == "bundle.md5") is ZipArchiveEntry md5) { // Allow to skip the check by deleting the file
-					Span<byte> expected = stackalloc byte[16];
-					using (var s = md5.Open())
+				Span<byte> expected = stackalloc byte[16];
+				using (var za = zhPath.EndsWith(".zip") ? ZipFile.OpenRead(zhPath) : null)
+					if (za?.Entries.FirstOrDefault(e => e.Name == "bundle.md5") is ZipArchiveEntry md5) {
+						using var s = md5.Open();
 						s.ReadExactly(expected);
-					using var fs = File.OpenRead(bundlePath);
+					} else if (File.Exists(zhPath + "/bundle.md5")) {
+						using var s = File.OpenRead(zhPath + "/bundle.md5");
+						s.ReadExactly(expected);
+					} else
+						goto skip; // Allow to skip the check by deleting the file
+				using (var fs = File.OpenRead(bundlePath))
 					if (!expected.SequenceEqual(MD5.HashDataAsync(fs).AsTask().GetAwaiter().GetResult())) {
 						Console.WriteLine();
 						Console.WriteLine("The localization has been updated by official. Please update this program.");
 						Console.WriteLine("官方已更新簡中翻譯，請更新繁體語系後再套用");
 						goto end;
 					}
-				}
 			}
-			
-			LELocalePatch.Program.Run(bundlePath, "zh-Hant.zip", false, true);
+		skip:
+			LELocalePatch.Program.Run(bundlePath, zhPath, false, true);
 			Console.WriteLine("Patching fonts . . .");
-			LEFontPatch.Program.Run(path + @"/Last Epoch_Data", "jf-openhuninn-2.0.zip");
+			LEFontPatch.Program.Run(path + @"/Last Epoch_Data", fontPath);
 			return; // Do not pause if success
 		} catch (Exception ex) {
 			var tmp = Console.ForegroundColor;
