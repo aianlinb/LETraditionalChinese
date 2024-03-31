@@ -26,6 +26,7 @@
 	<ItemGroup>
 		<Reference Include="LELocalePatch" HintPath="lib\LELocalePatch" />
 		<Reference Include="LEFontPatch" HintPath="lib\LEFontPatch" />
+		<RdXmlFile Include="LibCpp2IL.RD.xml"/>
 		<None Update="zh-Hant/**" CopyToOutputDirectory="PreserveNewest" />
 		<None Update="fonts/**" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
