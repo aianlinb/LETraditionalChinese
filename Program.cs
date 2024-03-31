@@ -52,7 +52,7 @@ public static class Program {
 				bundlePath = path + @"/Last Epoch_Data/StreamingAssets/aa/StandaloneWindows64/localization-string-tables-chinese(simplified)(zh)_assets_all.bundle";
 
 			var info = new FileInfo(bundlePath);
-			if (info.Length > 819200) { // > 800 KB (Haven't patched yet)
+			if (info.Length > 870400) { // > 850 KB (Haven't patched yet)
 				Span<byte> expected = stackalloc byte[16];
 				using (var za = zhPath.EndsWith(".zip") ? ZipFile.OpenRead(zhPath) : null)
 					if (za?.Entries.FirstOrDefault(e => e.Name == "bundle.md5") is ZipArchiveEntry md5) {
