@@ -1,0 +1,61 @@
+{
+	// The following assets must be built with Unity 2021.3.42f1
+
+	"sourceFontFiles": [  // Must be raw asset binary (Font)
+		// These will be skipped if there's any existing Font with the same name is found.
+		{ "path": "fonts/jf-openhuninn-2.1.dat" }
+	],
+	"atlases": [  // Must be raw asset binary (Texture2D)
+		{ "path": "fonts/jf-openhuninn-2.1 SDF32 Atlas.dat" },
+		{ "path": "fonts/jf-openhuninn-2.1 SDFAA (Dynamic) Atlas.dat" }
+	],
+	"materials": [  // Must be raw asset binary (Material)
+		{
+			"path": "fonts/jf-openhuninn-2.1 SDF32 Material.dat",
+			"atlas": 0
+		},
+		{
+			"path": "fonts/jf-openhuninn-2.1 SDF32 (Bold) Material.dat",
+			"atlas": 0
+		},
+		{
+			"path": "fonts/jf-openhuninn-2.1 SDFAA (Dynamic) Material.dat",
+			"atlas": 1
+		}
+	],
+	"fonts": [  // Must be json dump of the TMP_FontAsset
+		{
+			"path": "fonts/jf-openhuninn-2.1 SDF32.json",
+			"material": 0
+		},
+		{
+			"path": "fonts/jf-openhuninn-2.1 SDF32 (Bold).json",
+			"material": 1
+		},
+		{
+			"path": "fonts/jf-openhuninn-2.1 SDFAA (Dynamic).json",
+			"material": 2,
+			"sourceFont": 0
+		}
+	],
+
+	"fontReplacements": {  // `fonts` index
+		"Forum-Thin SDF16 (Cyrillic)": 0,
+		"Forum-SemiBold SDF (Cyrillic)": 1,
+		"Forum-Bold SDF (Cyrillic)": 1,
+		"Cinzel-Bold SDF": 1,
+		"LiberationSans SDF": 2
+	},
+	
+	"cancelIfNoFontReplaced": true,
+
+	"removeCharacters": {  // Remove specified characters in font files (to force them to fallback to other fonts)
+		// Where to get characters to remove
+		"fromCharacters": [],  // Unicode values
+		"fromFont": ["jf-openhuninn-2.1 SDF32"],  // Font names after replacement
+		
+		// Which fonts shouldn't be affect
+		"excludeReplaced": true,  // Excludes the fonts in `fontReplacements`
+		"excludeFonts": ["LiberationSans SDF - Fallback"]  // Font names after replacement
+	}
+}

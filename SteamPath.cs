@@ -1,68 +1,50 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
-
 using Microsoft.Win32;
 
 namespace LETraditionalChinese;
 public static partial class SteamPath {
-#if WINDOWS
 	public static string? GetSteamPath() {
 		string? result;
-		try {
-#pragma warning disable CA1416
-			result = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Valve\Steam", RegistryKeyPermissionCheck.ReadSubTree, System.Security.AccessControl.RegistryRights.QueryValues)?.GetValue("InstallPath", null) as string;
+		if (OperatingSystem.IsWindows()) {
+			try {
+				result = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Valve\Steam", RegistryKeyPermissionCheck.ReadSubTree,
+					System.Security.AccessControl.RegistryRights.QueryValues)?.GetValue("InstallPath", null) as string;
+				if (Directory.Exists(result))
+					return result;
+
+				result = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Valve\Steam", RegistryKeyPermissionCheck.ReadSubTree,
+					System.Security.AccessControl.RegistryRights.QueryValues)?.GetValue("InstallPath", null) as string;
+				if (Directory.Exists(result))
+					return result;
+			} catch { /*ignore*/ }
+			result = nint.Size == sizeof(int) ? @"C:\Program Files\Steam" : @"C:\Program Files (x86)\Steam";
 			if (Directory.Exists(result))
 				return result;
+		} else {
+			var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile, Environment.SpecialFolderOption.DoNotVerify);
+			if (OperatingSystem.IsMacOS()) {
+				result = home + "/Library/Application Support/Steam";
+				if (Directory.Exists(result))
+					return result;
+			} else if (OperatingSystem.IsLinux()) {
+				result = home + "/.steam/steam";
+				if (Directory.Exists(result))
+					return result;
 
-			result = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\WOW6432Node\Valve\Steam", RegistryKeyPermissionCheck.ReadSubTree, System.Security.AccessControl.RegistryRights.QueryValues)?.GetValue("InstallPath", null) as string;
-#pragma warning restore CA1416
-			if (Directory.Exists(result))
-				return result;
-		} catch { /*Ignore*/ }
-
-		result = nint.Size == sizeof(int) ? @"C:\Program Files\Steam" : @"C:\Program Files (x86)\Steam";
-		if (Directory.Exists(result))
-			return result;
-#else // !WINDOWS
-		var home = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile, Environment.SpecialFolderOption.DoNotVerify);
-#if MACOS
-		var result = home + "/Library/Application Support/Steam";
-		if (Directory.Exists(result))
-			return result;
-#else // !MACOS
-		var result = home + "/.steam/steam";
-		if (Directory.Exists(result))
-			return result;
-
-		result = home + "/.local/share/Steam";
-		if (Directory.Exists(result))
-			return result;
-#endif // MACOS
-#endif // WINDOWS
+				result = home + "/.local/share/Steam";
+				if (Directory.Exists(result))
+					return result;
+			}
+		}
 		return null;
 	}
 
 	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static string? GetSteamAppsPath() {
-		var steam = GetSteamPath();
-		return steam is null ? null : steam + (Path.DirectorySeparatorChar +
-#if WINDOWS
-			"steamapps"
-#else
-			"SteamApps"
-#endif
-		);
-	}
-
-	[MethodImpl(MethodImplOptions.AggressiveInlining)]
-	public static string? GetSteamAppsPath(string? steamPath) {
-		return steamPath is null ? null : steamPath + (Path.DirectorySeparatorChar +
-#if WINDOWS
-			"steamapps"
-#else
-			"SteamApps"
-#endif
-		);
+	public static string? GetSteamAppsPath(string? steamPath = null) {
+		steamPath ??= GetSteamPath();
+		return steamPath is null ? null :
+			$"{steamPath}{Path.DirectorySeparatorChar}{(OperatingSystem.IsWindows() ? "steamapps" : "SteamApps")}";
 	}
 
 	[GeneratedRegex("\"path\"\\s*\"([^\"]+)\"")]

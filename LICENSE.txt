@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2024 aianlinb
+Copyright (c) 2024-2025 aianlinb
 https://github.com/aianlinb/LETraditionalChinese
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
