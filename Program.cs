@@ -1,11 +1,9 @@
 #if DEBUG
-using System.IO;
 using System.Runtime.ExceptionServices;
 #endif
 using System.Security.Cryptography;
 
 namespace LETraditionalChinese;
-
 public static class Program {
 	public static void Main(string[] args) {
 		var path = AppContext.BaseDirectory + "LETraditionalChinese.zip";
