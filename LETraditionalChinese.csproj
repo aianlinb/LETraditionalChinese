@@ -13,7 +13,7 @@
 		<DebuggerSupport>false</DebuggerSupport>
 		<EventSourceSupport>false</EventSourceSupport>
 
-		<Version>2.0.0</Version>
+		<Version>2.0.1</Version>
 		<FileVersion>1.2.5.2</FileVersion>
 		<Authors>aianlinb</Authors>
 		<Copyright>Copyright © 2024-2025 aianlinb</Copyright>
