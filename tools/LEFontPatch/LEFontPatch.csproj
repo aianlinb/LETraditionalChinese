@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<RollForward>LatestMajor</RollForward>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<InvariantGlobalization>true</InvariantGlobalization>
+
+		<PublishAot>false</PublishAot>
+		<IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+		<DebuggerSupport>false</DebuggerSupport>
+		<EventSourceSupport>false</EventSourceSupport>
+
+		<Version>1.2.1</Version>
+		<Authors>aianlinb</Authors>
+		<Copyright>Copyright © 2024-2026 aianlinb</Copyright>
+		<PackageId>LastEpoch.Font</PackageId>
+		<RepositoryUrl>https://github.com/aianlinb/LEFontPatch</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+
+		<ProjectReference Include="..\..\deps\AssetsTools.NET\AssetsTools.NET.Cpp2IL\AssetsTools.NET.Cpp2IL.csproj" /> <!--At least 1.0.1-preview1-->
+
+		<EmbeddedResource Include="classdata.tpk" />
+		<RdXmlFile Include="LibCpp2IL.RD.xml" />
+	</ItemGroup>
+
+</Project>

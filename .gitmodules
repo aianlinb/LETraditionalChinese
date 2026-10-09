@@ -1,0 +1,7 @@
+[submodule "deps/AssetsTools.NET"]
+	path = deps/AssetsTools.NET
+	url = https://github.com/PadeAdmin/AssetsTools.NET.git
+	branch = last-epoch-season5
+[submodule "deps/Cpp2IL"]
+	path = deps/Cpp2IL
+	url = https://github.com/SamboyCoding/Cpp2IL.git

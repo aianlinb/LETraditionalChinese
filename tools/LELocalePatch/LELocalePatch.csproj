@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<RollForward>LatestMajor</RollForward>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<InvariantGlobalization>true</InvariantGlobalization>
+
+		<PublishAot>false</PublishAot>
+		<IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
+		<DebuggerSupport>false</DebuggerSupport>
+		<EventSourceSupport>false</EventSourceSupport>
+
+		<Version>2.1.0</Version>
+		<Authors>aianlinb</Authors>
+		<Copyright>Copyright © 2024-2025 aianlinb</Copyright>
+		<PackageId>LastEpoch.Localization</PackageId>
+		<RepositoryUrl>https://github.com/aianlinb/LELocalePatch</RepositoryUrl>
+		<PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\deps\AssetsTools.NET\AssetTools.NET\AssetsTools.NET.csproj" />
+	</ItemGroup>
+
+</Project>

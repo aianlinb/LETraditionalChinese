@@ -429,3 +429,5 @@ FodyWeavers.xsd
 
 # macOS
 .DS_Store
+/lib/
+/artifacts/

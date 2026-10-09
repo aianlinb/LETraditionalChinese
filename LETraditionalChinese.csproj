@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
@@ -6,14 +6,15 @@
 		<RollForward>LatestMajor</RollForward>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+        <DefaultItemExcludes>$(DefaultItemExcludes);tools\**;deps\**</DefaultItemExcludes>
 		<InvariantGlobalization>true</InvariantGlobalization>
 
-		<PublishAot>true</PublishAot>
+		<PublishAot>false</PublishAot>
 		<IlcFoldIdenticalMethodBodies>true</IlcFoldIdenticalMethodBodies>
 		<DebuggerSupport>false</DebuggerSupport>
 		<EventSourceSupport>false</EventSourceSupport>
 
-		<Version>2.1.1</Version>
+		<Version>2.1.2</Version>
 		<Authors>aianlinb</Authors>
 		<Copyright>Copyright © 2024-2026 aianlinb</Copyright>
 		<PackageId>LastEpoch.TraditionalChinese</PackageId>
@@ -22,9 +23,10 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Reference Include="LELocalePatch" HintPath="lib\LELocalePatch" />
-		<Reference Include="LEFontPatch" HintPath="lib\LEFontPatch" />
-		<RdXmlFile Include="LibCpp2IL.RD.xml" />
+		<ProjectReference Include="tools\LELocalePatch\LELocalePatch.csproj" />
+		<ProjectReference Include="tools\LEFontPatch\LEFontPatch.csproj" />
+		<Compile Remove="tools\**\*.cs;deps\**\*.cs" />
+        <RdXmlFile Include="LibCpp2IL.RD.xml" />
 		<None Update="LETraditionalChinese/**" CopyToOutputDirectory="PreserveNewest" />
 	</ItemGroup>
 
