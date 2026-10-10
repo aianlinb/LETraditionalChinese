@@ -13,7 +13,7 @@
 		<DebuggerSupport>false</DebuggerSupport>
 		<EventSourceSupport>false</EventSourceSupport>
 
-		<Version>2.1.1</Version>
+		<Version>2.2.0</Version>
 		<Authors>aianlinb</Authors>
 		<Copyright>Copyright © 2024-2026 aianlinb</Copyright>
 		<PackageId>LastEpoch.TraditionalChinese</PackageId>
